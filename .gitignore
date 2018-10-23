@@ -35,3 +35,7 @@ PaperIo/Debug
 PaperIo/.vs
 
 PaperIo/x64
+Server/Debug
+Server/Server/x64
+Server/Server/Debug
+Server/.vs

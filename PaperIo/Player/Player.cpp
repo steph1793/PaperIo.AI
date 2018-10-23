@@ -12,6 +12,9 @@ Player::Player()
 	mVelX = 0;
 	mVelY = 0;
 
+	c = new Client("localhost");
+	if (!c->Init()) printf("Client not initialized\n");
+
 	if (!gDotTexture.loadFromFile("Media/Images/dot.bmp", Renderer))
 	{
 		printf("failed loading dot!!!\n");

@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include "client.h"
 
 class Player
 {
@@ -10,6 +11,8 @@ public:
 
 	//Maximum axis velocity of the dot
 	static const int DOT_VEL = 5;
+
+	Client *c = NULL;
 
 	//Initializes the variables
 	Player();
