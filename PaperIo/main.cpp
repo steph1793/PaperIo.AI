@@ -4,8 +4,8 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-#include "Utils.h"
-#include "Player\Dot.h"
+#include "Utils/Utils.h"
+#include "Player/Player.h"
 
 using namespace std;
 TTF_Font *loadFont(string font_path, int font_size)
@@ -94,7 +94,7 @@ void App() {
 	 SDL_Event e;
 	 bool quit = false;
 
-	 Dot dot;
+	 Player dot;
 
 
 	SDL_Color textColor = { 0, 0, 0, 255 };

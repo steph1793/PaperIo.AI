@@ -1,8 +1,8 @@
 
-#include "Dot.h"
-#include "../Utils.h"
+#include "Player.h"
+#include "../Utils/Utils.h"
 
-Dot::Dot()
+Player::Player()
 {
 	//Initialize the offsets
 	mPosX = 0;
@@ -12,13 +12,13 @@ Dot::Dot()
 	mVelX = 0;
 	mVelY = 0;
 
-	if (!gDotTexture.loadFromFile("Media/Images/dot.bmp"))
+	if (!gDotTexture.loadFromFile("Media/Images/dot.bmp", Renderer))
 	{
 		printf("failed loading dot!!!\n");
 	}
 }
 
-void Dot::handleEvent(SDL_Event& e)
+void Player::handleEvent(SDL_Event& e)
 {
 	//If a key was pressed
 	if (e.type == SDL_KEYDOWN )
@@ -46,7 +46,7 @@ void Dot::handleEvent(SDL_Event& e)
 	}
 }
 
-void Dot::move()
+void Player::move()
 {
 	//Move the dot left or right
 	mPosX += mVelX;
@@ -68,9 +68,9 @@ void Dot::move()
 	}
 }
 
-void Dot::render()
+void Player::render()
 {
 	//Show the dot
-	gDotTexture.render(mPosX, mPosY);
+	gDotTexture.render(mPosX, mPosY, Renderer);
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 
-class Dot
+class Player
 {
 public:
 	//The dimensions of the dot
@@ -12,7 +12,7 @@ public:
 	static const int DOT_VEL = 5;
 
 	//Initializes the variables
-	Dot();
+	Player();
 
 	//Takes key presses and adjusts the dot's velocity
 	void handleEvent(SDL_Event& e);

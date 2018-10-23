@@ -124,19 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player\Dot.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Utils\LTexture.cpp" />
+    <ClCompile Include="Utils\LTimer.cpp" />
+    <ClCompile Include="Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player\Dot.h" />
+    <ClInclude Include="Player\Player.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Utils\LTexture.h" />
+    <ClInclude Include="Utils\LTimer.h" />
+    <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaperIo.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Media\Fonts\lazy.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
