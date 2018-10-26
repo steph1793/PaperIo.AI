@@ -7,7 +7,7 @@
 #include <string>
 #include "LButton.h"
 
-#include "stdafx.h"
+#include "../stdafx.h"
 #include <iostream>
 #include <SDL.h>
 #include <SDL_net.h>

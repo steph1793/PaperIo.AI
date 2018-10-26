@@ -30,3 +30,11 @@ extern TTF_Font *gFont;
 extern Client *client;
 extern bool client_set;
 extern bool start;
+
+bool Init();
+void load_dots();
+void render_dots();
+void move_dots();
+void update_dots_moves();
+void before_game_loop();
+void Clean();

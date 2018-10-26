@@ -24,30 +24,6 @@ bool Client::Init(){
 	if(!clientSocket) return false;
 	SDLNet_TCP_AddSocket(socketSet, clientSocket);
 
-	/*int active = SDLNet_CheckSockets(socketSet,5000);
-
-	int gotResponse = SDLNet_SocketReady(clientSocket);
-	if(gotResponse !=0){
-		///We do the actions to initialize the client given that he is connected
-		if(SDLNet_TCP_Recv(clientSocket, buffer, BUFFER_SIZE) >0){
-			char *s1 = strtok(buffer, " ");
-			char *s2 = strtok(NULL, " ");
-			char *s3 = strtok(NULL, " ");
-			char *s4 = strtok(NULL, " ");
-			id = atoi(s1);
-			dot.mPosX = atoi(s3);
-			dot.mPosY = atoi(s4);
-			if(strcmp(s2, "connected")==0){ shutdown = false; cout << "joining the server..\nYour id is "<<id<<"\nPosition : x = "<<dot.mPosX<<"; y = "<<dot.mPosY<<endl << buffer << endl;}
-			else{
-				cout << "server is full\n";
-				return false;	
-			}
-		}
-		else{
-			return false;
-		}
-	}*/
-	//shutdown = false;
 	return true;
 
 }
