@@ -5,8 +5,7 @@
 #include <SDL_net.h>
 #include <cstring>
 #include <string>
-
-
+#include "../Utils/PlayersUtils.h"
 using namespace std;
 
 class Client{
@@ -26,6 +25,7 @@ class Client{
 		char buffer[1000];
 		const char *host = NULL;
 	public:
+		int id;
 		bool shutdown = true;
 
 	public:

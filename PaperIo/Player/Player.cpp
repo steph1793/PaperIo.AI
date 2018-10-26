@@ -12,17 +12,25 @@ Player::Player()
 	mVelX = 0;
 	mVelY = 0;
 
-	c = new Client("localhost");
-	if (!c->Init()) printf("Client not initialized\n");
+	
+}
 
-	if (!gDotTexture.loadFromFile("Media/Images/dot.bmp", Renderer))
-	{
-		printf("failed loading dot!!!\n");
-	}
+Player::Player(int Id, int x, int y)
+{
+	//Initialize the offsets
+	mPosX = x;
+	mPosY = y;
+	id = Id;
+	//Initialize the velocity
+	mVelX = 0;
+	mVelY = 0;
+
+
 }
 
 void Player::handleEvent(SDL_Event& e)
 {
+	string token = "";
 	//If a key was pressed
 	if (e.type == SDL_KEYDOWN )
 	{
@@ -30,22 +38,29 @@ void Player::handleEvent(SDL_Event& e)
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_UP: 
-			mVelY = -DOT_VEL;
-			mVelX = 0;
+			token = "UP";
+			//mVelY = -DOT_VEL;
+			//mVelX = 0;
 			break; 
 		case SDLK_DOWN: 
-			mVelY = DOT_VEL; 
-			mVelX = 0;
+			token = "DOWN";
+			//mVelY = DOT_VEL; 
+			//mVelX = 0;
 			break;
-		case SDLK_LEFT: 
-			mVelX = -DOT_VEL; 
-			mVelY = 0;
+		case SDLK_LEFT:
+			token = "LEFT";
+			//mVelX = -DOT_VEL; 
+			//mVelY = 0;
 			break;
 		case SDLK_RIGHT: 
-			mVelX = DOT_VEL;
-			mVelY = 0;
+			token = "RIGHT";
+			//mVelX = DOT_VEL;
+			//mVelY = 0;
 			break;
 		}
+		if (client_set && token != "")
+		client->Send(to_string( client->id) + " "+ token );
+		token = "";
 	}
 }
 

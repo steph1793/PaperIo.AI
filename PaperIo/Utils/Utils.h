@@ -7,9 +7,9 @@
 #include <string>
 #include <sstream>
 
-#include "LTexture.h"
 #include "LTimer.h"
 
+#include "client.h"
 #define _SDL_TTF_H
 
 
@@ -27,6 +27,6 @@ extern SDL_Surface* screenSurface ;
 extern SDL_Renderer* Renderer;
 extern TTF_Font *gFont;
 
-
-extern LTexture gFPSTextTexture;
-extern LTexture gDotTexture;
+extern Client *client;
+extern bool client_set;
+extern bool start;

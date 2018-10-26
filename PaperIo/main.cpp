@@ -50,6 +50,10 @@ SDL_Texture* loadTexture(std::string path)
 bool Init() {
 
 
+	client = new Client("192.168.43.176");
+	if (!client->Init()) { printf("Client initialization failed.\n"); return false; }
+	else  client_set = true;
+
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		cout << "SDL could not initialize!!!\n";
 		return false;
@@ -82,6 +86,7 @@ bool Init() {
 	}
 	 //gFont = loadFont("Media/Fonts/lazy.ttf", 28);
 
+
 	return true;
 }
 void Clean() {
@@ -89,12 +94,122 @@ void Clean() {
 	SDL_Quit();
 }
 
+void load_dots()
+{
+	if (!dot->gDotTexture.loadFromFile("Media/Images/dot.bmp", Renderer))
+	{
+		printf("failed loading Main dot!!!\n");
+	}
+
+	for (auto i = Dots.begin(); i != Dots.end(); i++)
+	{
+		if (!i->second->gDotTexture.loadFromFile("Media/Images/dot.bmp", Renderer))
+		{
+			printf("failed loading dot %d !!!\n", i->first);
+		}
+	}
+}
+
+void render_dots() {
+	dot->render();
+	for (auto i = Dots.begin(); i != Dots.end(); i++)
+	{
+		i->second->render();
+	}
+}
+
+void move_dots() {
+	dot->move();
+	for (auto i = Dots.begin(); i != Dots.end(); i++)
+	{
+		i->second->move();
+	}
+}
+
+
+void update_dots_moves() {
+	string buff = client->GetResponse();
+	if (buff.length() > 3) {
+		char b[100];
+		strcpy_s(b, buff.c_str());
+		char *next = NULL;
+		char *s = strtok_s(b, " ",&next);
+		char *s2 = strtok_s(NULL, " ",&next);
+		int id = atoi(s);
+		Player *tmp = NULL;
+		if (id == client->id) { ///////il s'agit du main
+			tmp = dot;
+		}
+		else
+			tmp = Dots.find(id)->second;
+		if (strcmp(s2, "UP") == 0) {
+			tmp->mVelX = 0;
+			tmp->mVelY = - tmp->DOT_VEL;
+		}
+		if (strcmp(s2, "DOWN") == 0) {
+			tmp->mVelX = 0;
+			tmp->mVelY = tmp->DOT_VEL;
+		}
+		if (strcmp(s2, "RIGHT") == 0) {
+			tmp->mVelX = tmp->DOT_VEL;
+			tmp->mVelY = 0;
+		}
+		if (strcmp(s2, "LEFT") == 0) {
+			tmp->mVelX = -tmp->DOT_VEL;
+			tmp->mVelY = 0;
+		}
+	}
+}
+
+
+void before_game_loop() {
+	string buff = client->GetResponse();
+	char  tmp[1000] ;
+	strcpy_s(tmp, buff.c_str());
+	if (strlen(tmp)>3) {
+
+		if (buff == "start") {
+			start = true;
+		}
+		else {
+			char *next_token = NULL;
+			char *next_token2 = NULL;
+
+			char *s = strtok_s(tmp, ";", &next_token);
+
+			while (s) {
+				char* s1 = strtok_s(s, " ", &next_token2);
+				char* s2 = strtok_s(NULL, " ", &next_token2);
+				char* s3 = strtok_s(NULL, " ", &next_token2);
+				char* s4 = strtok_s(NULL, " ", &next_token2);
+				if (strcmp(s2, "connected") == 0) {
+					if (!dot->set) {
+						dot->id = atoi(s1);
+						dot->mPosX = atoi(s3);
+						dot->mPosY = atoi(s4);
+						dot->set = true;
+						client->id = atoi(s1);
+						cout << "dot created" << endl;
+					}
+					else {
+						Dots.insert(pair<int, Player*>(atoi(s1), new Player(atoi(s1), atoi(s3), atoi(s4))));
+					}
+				}
+
+				s = strtok_s(NULL, ";", &next_token);
+			}
+		}
+		
+	}
+	
+}
+
 void App() {
+
 
 	 SDL_Event e;
 	 bool quit = false;
 
-	 Player dot;
 
 
 	SDL_Color textColor = { 0, 0, 0, 255 };
@@ -110,16 +225,26 @@ void App() {
 	while (!quit) {
 		//Start cap timer
 		capTimer.start();
+
+		if (!start)
+			before_game_loop();
+		if (start)
+			load_dots();
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT)
 			{
 				quit = true;
 			}
-			dot.handleEvent(e);
+			if (start)
+				dot->handleEvent(e);
 		}
 
-		dot.move();
+		if(start) {
+			update_dots_moves();
+			move_dots();
 
+		}
+	
 		//Clear screen
 		SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(Renderer);
@@ -127,12 +252,9 @@ void App() {
 		//Render textures
 		//gFPSTextTexture.render((SCREEN_WIDTH - gFPSTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gFPSTextTexture.getHeight()) / 2);
 
-		dot.render();
-
+		render_dots();
 		//Update screen
 		SDL_RenderPresent(Renderer);
-
-
 
 		//If frame finished early
 		int frameTicks = capTimer.getTicks();
@@ -148,7 +270,7 @@ void App() {
 int main(int argc, char** argv)
 {
 
-	Init();
+	if(!Init()) return 0; // à redefinir (par exemple boucle while dans le init pour essayer de rconnecter le joueur encore et encore jusqu'à ce que le serveur soit allumé).
 	App();
 	Clean();
 	return 0;

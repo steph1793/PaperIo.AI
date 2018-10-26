@@ -124,18 +124,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player\client.cpp" />
+    <ClCompile Include="Player\MainPlayer.cpp" />
     <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Utils\client.cpp" />
     <ClCompile Include="Utils\LTexture.cpp" />
     <ClCompile Include="Utils\LTimer.cpp" />
+    <ClCompile Include="Utils\PlayersUtils.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player\client.h" />
+    <ClInclude Include="Player\MainPlayer.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Utils\client.h" />
     <ClInclude Include="Utils\LTexture.h" />
     <ClInclude Include="Utils\LTimer.h" />
+    <ClInclude Include="Utils\PlayersUtils.h" />
     <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>

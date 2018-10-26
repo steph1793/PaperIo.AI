@@ -13,5 +13,9 @@ SDL_Surface* screenSurface = NULL;
 SDL_Renderer* Renderer = NULL;
 
 TTF_Font *gFont = NULL;
-LTexture gFPSTextTexture;
-LTexture gDotTexture;
+
+Client *client = NULL;
+bool client_set = false;
+
+
+bool start = false;
