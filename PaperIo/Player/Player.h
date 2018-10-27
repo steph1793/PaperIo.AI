@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "../Utils/LTexture.h"
-
+#include "../Utils/Rectangle.h"
 
 class Player
 {
@@ -13,6 +13,7 @@ public:
 	//Maximum axis velocity of the dot
 	static const int DOT_VEL = 5;
 
+	Rect* rect = NULL;
 
 	//Initializes the variables
 	Player();
@@ -21,7 +22,7 @@ public:
 	void handleEvent(SDL_Event& e);
 
 	//Moves the dot
-	virtual void move();
+	virtual void move(SDL_Renderer*);
 
 	//Shows the dot on the screen
 	void render(SDL_Rect*);

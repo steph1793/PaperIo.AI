@@ -16,11 +16,11 @@ void App() {
 	 bool quit = false;
 
 	 SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-	 LTexture gBGTexture;
-	 if (!gBGTexture.loadFromFile("Media/Images/bg.png", Renderer))
-	 {
-		 printf("Failed to load background texture!\n");
-	 }
+	// LTexture gBGTexture;
+	 //if (!gBGTexture.loadFromFile("Media/Images/bg.png", Renderer))
+	 //{
+		// printf("Failed to load background texture!\n");
+	 //}
 
 	SDL_Color textColor = { 0, 0, 0, 255 };
 	LTimer fpsTimer;
@@ -51,17 +51,20 @@ void App() {
 
 		if(start) {
 			update_dots_moves();
-			move_dots();
+			move_dots(Renderer);
 			dot->SetCamera(&camera);
 		}
 	
 		//Clear screen
+		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
 		SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(Renderer);
-		gBGTexture.render(0, 0, Renderer, &camera);
+		//gBGTexture.render(0, 0, Renderer, &camera);
 		//Render textures
 		//gFPSTextTexture.render((SCREEN_WIDTH - gFPSTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gFPSTextTexture.getHeight()) / 2);
+;
 
+		Rect::renderRects(rects, &camera, Renderer);
 		render_dots(&camera, Renderer);
 		//Update screen
 		SDL_RenderPresent(Renderer);

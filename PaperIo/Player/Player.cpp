@@ -8,11 +8,11 @@ Player::Player()
 	mBox.x = 0;
 	mBox.y = 0;
 
-
-
 	//Initialize the velocity
 	mVelX = 0;
 	mVelY = 0;
+	mBox.w = DOT_WIDTH;
+	mBox.h = DOT_HEIGHT;
 
 	
 }
@@ -43,23 +43,15 @@ void Player::handleEvent(SDL_Event& e)
 		{
 		case SDLK_UP: 
 			token = "UP";
-			//mVelY = -DOT_VEL;
-			//mVelX = 0;
 			break; 
 		case SDLK_DOWN: 
 			token = "DOWN";
-			//mVelY = DOT_VEL; 
-			//mVelX = 0;
 			break;
 		case SDLK_LEFT:
 			token = "LEFT";
-			//mVelX = -DOT_VEL; 
-			//mVelY = 0;
 			break;
 		case SDLK_RIGHT: 
 			token = "RIGHT";
-			//mVelX = DOT_VEL;
-			//mVelY = 0;
 			break;
 		}
 		if (client_set && token != "")
@@ -68,7 +60,7 @@ void Player::handleEvent(SDL_Event& e)
 	}
 }
 
-void Player::move()
+void Player::move(SDL_Renderer *renderer)
 {
 	//Move the dot left or right
 	mBox.x += mVelX;
@@ -88,6 +80,9 @@ void Player::move()
 		//Move back
 		mBox.y -= mVelY;
 	}
+	int direction = (mVelX == 0) ? 1 : 0;
+	if (mVelY == 0 && mVelX == 0) direction = -1;
+	rect->updateRect(this->mBox, direction);
 }
 
 void Player::render(SDL_Rect *camera)

@@ -132,6 +132,7 @@
     <ClCompile Include="Utils\LTexture.cpp" />
     <ClCompile Include="Utils\LTimer.cpp" />
     <ClCompile Include="Utils\PlayersUtils.cpp" />
+    <ClCompile Include="Utils\Rectangle.cpp" />
     <ClCompile Include="Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Utils\LTexture.h" />
     <ClInclude Include="Utils\LTimer.h" />
     <ClInclude Include="Utils\PlayersUtils.h" />
+    <ClInclude Include="Utils\Rectangle.h" />
     <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>

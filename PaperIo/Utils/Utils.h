@@ -38,7 +38,7 @@ extern bool start;
 bool Init();
 void load_dots();
 void render_dots(SDL_Rect *camera, SDL_Renderer *renderer);
-void move_dots();
+void move_dots(SDL_Renderer*);
 void update_dots_moves();
 void before_game_loop();
 void Clean();

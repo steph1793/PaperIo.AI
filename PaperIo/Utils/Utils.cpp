@@ -103,17 +103,18 @@ void render_dots(SDL_Rect *camera, SDL_Renderer *renderer) {
 	}
 }
 
-void move_dots() {
+void move_dots(SDL_Renderer* renderer) {
 	dot->move();
 	for (auto i = Dots.begin(); i != Dots.end(); i++)
 	{
-		i->second->move();
+		i->second->move(renderer);
 	}
 }
 
 
 void update_dots_moves() {
 	string buff = client->GetResponse();
+	bool change_direction = false;
 	if (buff.length() > 3) {
 		char b[100];
 		strcpy_s(b, buff.c_str());
@@ -128,20 +129,37 @@ void update_dots_moves() {
 		else
 			tmp = Dots.find(id)->second;
 		if (strcmp(s2, "UP") == 0) {
-			tmp->mVelX = 0;
-			tmp->mVelY = -tmp->DOT_VEL;
+			if (tmp->mVelY == 0) {
+				tmp->mVelX = 0;
+				tmp->mVelY = -tmp->DOT_VEL;
+				change_direction = true;
+			}
 		}
 		if (strcmp(s2, "DOWN") == 0) {
-			tmp->mVelX = 0;
-			tmp->mVelY = tmp->DOT_VEL;
+			if (tmp->mVelY == 0 ) {
+				tmp->mVelX = 0;
+				tmp->mVelY = tmp->DOT_VEL;
+				change_direction = true;
+			}
 		}
 		if (strcmp(s2, "RIGHT") == 0) {
-			tmp->mVelX = tmp->DOT_VEL;
-			tmp->mVelY = 0;
+			if (tmp->mVelX == 0) {
+				tmp->mVelX = tmp->DOT_VEL;
+				tmp->mVelY = 0;
+				change_direction = true;
+			}
 		}
 		if (strcmp(s2, "LEFT") == 0) {
-			tmp->mVelX = -tmp->DOT_VEL;
-			tmp->mVelY = 0;
+			if (tmp->mVelX ==0) {
+				tmp->mVelX = -tmp->DOT_VEL;
+				tmp->mVelY = 0;
+				change_direction = true;
+			}
+		}
+		if (change_direction) {
+			tmp->rect = new Rect(tmp->id, { tmp->mBox.x, tmp->mBox.y, tmp->mBox.w, tmp->mBox.h }, 0);
+			rects.push_back(tmp->rect);
+			change_direction = false;
 		}
 	}
 }
@@ -177,7 +195,9 @@ void before_game_loop() {
 						cout << "dot created" << endl;
 					}
 					else {
-						Dots.insert(pair<int, Player*>(atoi(s1), new Player(atoi(s1), atoi(s3), atoi(s4))));
+						Player *d = new Player(atoi(s1), atoi(s3), atoi(s4));
+						d->rect = new Rect(d->id, {d->mBox.x, d->mBox.y, d->mBox.w, d->mBox.h}, 0);
+						Dots.insert(pair<int, Player*>(atoi(s1), d));
 					}
 				}
 

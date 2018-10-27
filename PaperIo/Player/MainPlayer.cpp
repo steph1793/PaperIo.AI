@@ -24,6 +24,10 @@ void MainPlayer::move()
 		//Move back
 		mBox.y -= mVelY;
 	}
+	int direction = (mVelX == 0) ? 1 : 0;
+	if (mVelY == 0 && mVelX ==0) direction = -1;
+	rect->updateRect(this->mBox, direction);
+
 }
 
 void MainPlayer::render(SDL_Rect* camera, SDL_Renderer *renderer)
