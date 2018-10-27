@@ -10,13 +10,17 @@
 #include "LTimer.h"
 
 #include "client.h"
+
+#include "Globals.h"
+
+#include "../GameUtils.h"
+
 #define _SDL_TTF_H
 
 
 using namespace std;
 
-extern const int SCREEN_WIDTH ;
-extern const int SCREEN_HEIGHT ;
+
 extern const char* windowTitle ;
 
 extern const int SCREEN_FPS ;
@@ -33,7 +37,7 @@ extern bool start;
 
 bool Init();
 void load_dots();
-void render_dots();
+void render_dots(SDL_Rect *camera, SDL_Renderer *renderer);
 void move_dots();
 void update_dots_moves();
 void before_game_loop();

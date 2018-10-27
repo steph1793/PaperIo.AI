@@ -21,15 +21,15 @@ public:
 	void handleEvent(SDL_Event& e);
 
 	//Moves the dot
-	void move();
+	virtual void move();
 
 	//Shows the dot on the screen
-	void render();
+	void render(SDL_Rect*);
 
 	int id;
 
 	//The X and Y offsets of the dot
-	int mPosX, mPosY;
+	SDL_Rect mBox;
 
 	//The velocity of the dot
 	int mVelX, mVelY;

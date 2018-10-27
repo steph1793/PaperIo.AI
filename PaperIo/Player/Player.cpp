@@ -5,8 +5,10 @@
 Player::Player()
 {
 	//Initialize the offsets
-	mPosX = 0;
-	mPosY = 0;
+	mBox.x = 0;
+	mBox.y = 0;
+
+
 
 	//Initialize the velocity
 	mVelX = 0;
@@ -18,8 +20,10 @@ Player::Player()
 Player::Player(int Id, int x, int y)
 {
 	//Initialize the offsets
-	mPosX = x;
-	mPosY = y;
+	mBox.x = x;
+	mBox.y = y;
+	mBox.w = DOT_WIDTH;
+	mBox.h = DOT_HEIGHT;
 	id = Id;
 	//Initialize the velocity
 	mVelX = 0;
@@ -67,28 +71,30 @@ void Player::handleEvent(SDL_Event& e)
 void Player::move()
 {
 	//Move the dot left or right
-	mPosX += mVelX;
+	mBox.x += mVelX;
 
 	//If the dot went too far to the left or right
-	if ((mPosX < 0) || (mPosX + DOT_WIDTH > SCREEN_WIDTH))
+	if ((mBox.x < 0) || (mBox.x + DOT_WIDTH > LEVEL_WIDTH))
 	{
 		//Move back
-		mPosX -= mVelX;
+		mBox.x -= mVelX;
 	}    
 	//Move the dot up or down
-	mPosY += mVelY;
+	mBox.y += mVelY;
 
 	//If the dot went too far up or down
-	if ((mPosY < 0) || (mPosY + DOT_HEIGHT > SCREEN_HEIGHT))
+	if ((mBox.y < 0) || (mBox.y + DOT_HEIGHT > LEVEL_HEIGHT))
 	{
 		//Move back
-		mPosY -= mVelY;
+		mBox.y -= mVelY;
 	}
 }
 
-void Player::render()
+void Player::render(SDL_Rect *camera)
 {
-	//Show the dot
-	gDotTexture.render(mPosX, mPosY, Renderer);
+	if (checkCollision(camera,&mBox )) {
+		//Show the dot
+		gDotTexture.render(mBox.x-camera->x, mBox.y-camera->y, Renderer);
+	}
 }
 

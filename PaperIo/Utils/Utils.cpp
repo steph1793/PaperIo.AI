@@ -1,9 +1,8 @@
 #include "Utils.h"
 
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
 const char* windowTitle = "SDL Tuto";
+
 
 const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
@@ -96,11 +95,11 @@ void load_dots()
 	}
 }
 
-void render_dots() {
-	dot->render();
+void render_dots(SDL_Rect *camera, SDL_Renderer *renderer) {
+	dot->render(camera, renderer);
 	for (auto i = Dots.begin(); i != Dots.end(); i++)
 	{
-		i->second->render();
+		i->second->render(camera);
 	}
 }
 
@@ -171,8 +170,8 @@ void before_game_loop() {
 				if (strcmp(s2, "connected") == 0) {
 					if (!dot->set) {
 						dot->id = atoi(s1);
-						dot->mPosX = atoi(s3);
-						dot->mPosY = atoi(s4);
+						dot->mBox.x = atoi(s3);
+						dot->mBox.y = atoi(s4);
 						dot->set = true;
 						client->id = atoi(s1);
 						cout << "dot created" << endl;
