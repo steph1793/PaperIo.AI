@@ -28,6 +28,7 @@ void MainPlayer::move()
 	if (mVelY == 0 && mVelX ==0) direction = -1;
 	rect->updateRect(this->mBox, direction);
 
+
 }
 
 void MainPlayer::render(SDL_Rect* camera, SDL_Renderer *renderer)

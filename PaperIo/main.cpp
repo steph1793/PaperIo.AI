@@ -6,11 +6,13 @@
 
 #include "Utils/Utils.h"
 #include "Player/Player.h"
+#include "GameUtils.h"
 using namespace std;
 
 
 void App() {
-
+	Sint16 *vx = new Sint16[5]{ 1,300,600,400,200 };
+	Sint16 *vy = new Sint16[5]{ 1, 100, 100, 600, 400 };
 
 	 SDL_Event e;
 	 bool quit = false;
@@ -56,15 +58,17 @@ void App() {
 		}
 	
 		//Clear screen
-		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
 		SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(Renderer);
 		//gBGTexture.render(0, 0, Renderer, &camera);
 		//Render textures
 		//gFPSTextTexture.render((SCREEN_WIDTH - gFPSTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gFPSTextTexture.getHeight()) / 2);
-;
+;		
 
-		Rect::renderRects(rects, &camera, Renderer);
+		int r = filledPolygonRGBA(Renderer, vx, vy, 5, 255, 0, 255, 255, &camera);
+		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
+
+		Rect::renderRects(rects_trail, &camera, Renderer);
 		render_dots(&camera, Renderer);
 		//Update screen
 		SDL_RenderPresent(Renderer);

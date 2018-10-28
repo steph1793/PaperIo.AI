@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Utils.h"
+#include <random>
+#include <algorithm>
 
 #pragma warning(disable: 4996)
 
@@ -49,6 +51,7 @@ bool shutdownServer = false;
 map<int, string> connected_clients;
 
 
+vector<int> colors;
 
 
 bool init()
@@ -149,10 +152,13 @@ bool Init_server() {
 
 }
 
-int random_num(int max)
+int random_num(int min , int max)
 {
-	srand((unsigned)time(0));
-	return (rand() % max) + 1;
+	std::mt19937 rng;
+	rng.seed(std::random_device()());
+	std::uniform_int_distribution<std::mt19937::result_type> dist6(min, max); // distribution in range [1, 6]
+
+	return dist6(rng);
 }
 
 string join(char buff[], map<int, string> vec)
@@ -193,7 +199,12 @@ void loop() {
 
 			////// We send a message to the client to tell him he is connected
 			memset(buffer, '\0', BUFFER_SIZE);
-			sprintf(buffer, "%d connected %d %d", freespot, random_num(400), random_num(400));
+			int value = random_num(0, 7);
+			while (std::find(colors.begin(), colors.end(), value) != colors.end()) {
+				value = random_num(0, 7);
+			}
+			colors.push_back(value);
+			sprintf(buffer, "%d connected %d %d %d", freespot, random_num(200,600), random_num(200,600), value );
 
 
 			for (int i = 0; i < clientcount; i++)

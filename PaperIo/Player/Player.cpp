@@ -7,7 +7,6 @@ Player::Player()
 	//Initialize the offsets
 	mBox.x = 0;
 	mBox.y = 0;
-
 	//Initialize the velocity
 	mVelX = 0;
 	mVelY = 0;

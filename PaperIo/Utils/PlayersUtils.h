@@ -6,4 +6,4 @@
 
 extern MainPlayer *dot;
 extern map<int, Player*> Dots;
-extern vector<Rect*> rects;
+extern vector<Rect*> rects_trail;

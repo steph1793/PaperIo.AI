@@ -12,8 +12,10 @@ public:
 
 	//Maximum axis velocity of the dot
 	static const int DOT_VEL = 5;
+	int color = 0;
 
 	Rect* rect = NULL;
+	Rect* init_rect = NULL;
 
 	//Initializes the variables
 	Player();

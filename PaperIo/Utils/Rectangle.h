@@ -10,7 +10,7 @@ public:
 	SDL_Rect box;
 	int playerId;
 	int RectType;
-
+	int color;
 
 	void render(SDL_Rect *camera, SDL_Renderer *renderer);
 	void updateRect(SDL_Rect, int);

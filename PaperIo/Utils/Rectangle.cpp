@@ -1,5 +1,16 @@
 #include "Rectangle.h"
 
+SDL_Rect colors[8]{
+	{204,0,204,255},
+	{204,0,102,255},
+	{102,0,204,255},
+	{0,0,204,255},
+	{0,153,76,255},
+	{153,153,0,255},
+	{255,255,51,255},
+	{255,153,51,255}
+};
+
 Rect::Rect(int playerid, SDL_Rect b, int type)
 {
 	playerId = playerid;
@@ -15,9 +26,12 @@ Rect::Rect()
 
 void Rect::render(SDL_Rect *camera, SDL_Renderer *renderer)
 {
+	int alpha = 0;
 	if (checkCollision(camera, &box)) {
 		SDL_Rect fill_rect = { box.x - camera->x, box.y - camera->y, box.w, box.h };
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 100);
+		if (RectType == 0) alpha = 100;
+		else alpha = 255;
+		SDL_SetRenderDrawColor(renderer, colors[color].x, colors[color].y, colors[color].w, alpha);
 		SDL_RenderFillRect(renderer, &fill_rect);
 
 	}

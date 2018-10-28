@@ -158,7 +158,8 @@ void update_dots_moves() {
 		}
 		if (change_direction) {
 			tmp->rect = new Rect(tmp->id, { tmp->mBox.x, tmp->mBox.y, tmp->mBox.w, tmp->mBox.h }, 0);
-			rects.push_back(tmp->rect);
+			tmp->rect->color = tmp->color;
+			rects_trail.push_back(tmp->rect);
 			change_direction = false;
 		}
 	}
@@ -185,19 +186,31 @@ void before_game_loop() {
 				char* s2 = strtok_s(NULL, " ", &next_token2);
 				char* s3 = strtok_s(NULL, " ", &next_token2);
 				char* s4 = strtok_s(NULL, " ", &next_token2);
+				char* s5 = strtok_s(NULL, " ", &next_token2);
 				if (strcmp(s2, "connected") == 0) {
 					if (!dot->set) {
 						dot->id = atoi(s1);
 						dot->mBox.x = atoi(s3);
 						dot->mBox.y = atoi(s4);
 						dot->set = true;
+						dot->color = atoi(s5);
+						dot->init_rect = new Rect(dot->id, { dot->mBox.x - (100 - dot->DOT_WIDTH) / 2,
+												dot->mBox.y - (100 - dot->DOT_HEIGHT) / 2, 100, 100 }, 1);
+						dot->init_rect->color = dot->color;
+						rects_trail.push_back(dot->init_rect);
 						client->id = atoi(s1);
 						cout << "dot created" << endl;
 					}
 					else {
 						Player *d = new Player(atoi(s1), atoi(s3), atoi(s4));
+						d->color = atoi(s5);
 						d->rect = new Rect(d->id, {d->mBox.x, d->mBox.y, d->mBox.w, d->mBox.h}, 0);
+						d->rect->color = d->color;
+						d->init_rect = new Rect(d->id, { d->mBox.x - (100 - d->DOT_WIDTH) / 2,
+							d->mBox.y - (100 - d->DOT_HEIGHT) / 2, 100, 100 }, 1);
+						d->init_rect->color = d->color;
 						Dots.insert(pair<int, Player*>(atoi(s1), d));
+						rects_trail.push_back(d->init_rect);
 					}
 				}
 

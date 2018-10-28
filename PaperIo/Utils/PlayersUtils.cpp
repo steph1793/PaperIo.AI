@@ -3,4 +3,4 @@
 
 MainPlayer* dot = new MainPlayer();
 map<int, Player*> Dots;
-vector<Rect*> rects;
+vector<Rect*> rects_trail;
