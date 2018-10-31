@@ -1,12 +1,4 @@
-#include <iostream>
-#include <string>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-
-#include "Utils/Utils.h"
-#include "Player/Player.h"
-#include "GameUtils.h"
+#include <Utils.h>
 using namespace std;
 
 

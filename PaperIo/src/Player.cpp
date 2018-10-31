@@ -1,6 +1,6 @@
 
-#include "Player.h"
-#include "../Utils/Utils.h"
+#include <Player.h>
+#include <Utils.h>
 
 Player::Player()
 {

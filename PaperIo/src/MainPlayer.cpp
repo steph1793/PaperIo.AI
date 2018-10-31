@@ -1,5 +1,5 @@
-#include "MainPlayer.h"
-#include "../Utils/Globals.h"
+#include <MainPlayer.h>
+#include <Globals.h>
 
 
 

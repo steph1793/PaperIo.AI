@@ -18,34 +18,31 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Player\Player.cpp">
+    <ClCompile Include="src\client.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Utils.cpp">
+    <ClCompile Include="src\GameUtils.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\LTexture.cpp">
+    <ClCompile Include="src\Globals.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Player\MainPlayer.cpp">
+    <ClCompile Include="src\LTexture.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\client.cpp">
+    <ClCompile Include="src\LTimer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
+    <ClCompile Include="src\MainPlayer.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtils.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\Rectangle.cpp">
+    <ClCompile Include="src\Rectangle.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\PlayersUtils.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\LTimer.cpp">
+    <ClCompile Include="src\Utils.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,34 +50,31 @@
     <ClInclude Include="resource.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Player\Player.h">
+    <ClInclude Include="Include\client.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Utils.h">
+    <ClInclude Include="Include\GameUtils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\LTexture.h">
+    <ClInclude Include="Include\Globals.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\LTimer.h">
+    <ClInclude Include="Include\LTexture.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Player\MainPlayer.h">
+    <ClInclude Include="Include\LTimer.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\client.h">
+    <ClInclude Include="Include\MainPlayer.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Globals.h">
+    <ClInclude Include="Include\Player.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtils.h">
+    <ClInclude Include="Include\Rectangle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\Rectangle.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\PlayersUtils.h">
+    <ClInclude Include="Include\Utils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

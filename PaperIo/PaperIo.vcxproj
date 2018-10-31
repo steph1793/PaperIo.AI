@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>C:\GitProjetcts\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitProjetcts\PaperIo.AI\PaperIo\Include;C:\GitProjetcts\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\GitProjetcts\SDL2-2.0.8\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -112,7 +112,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <AdditionalIncludeDirectories>C:\GitProjetcts\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\GitProjetcts\PaperIo.AI\PaperIo\Include;C:\GitProjetcts\SDL2-2.0.8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -123,30 +123,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameUtils.cpp" />
-    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player\MainPlayer.cpp" />
-    <ClCompile Include="Player\Player.cpp" />
-    <ClCompile Include="Utils\client.cpp" />
-    <ClCompile Include="Utils\LTexture.cpp" />
-    <ClCompile Include="Utils\LTimer.cpp" />
-    <ClCompile Include="Utils\PlayersUtils.cpp" />
-    <ClCompile Include="Utils\Rectangle.cpp" />
-    <ClCompile Include="Utils\Utils.cpp" />
+    <ClCompile Include="src\client.cpp" />
+    <ClCompile Include="src\GameUtils.cpp" />
+    <ClCompile Include="src\Globals.cpp" />
+    <ClCompile Include="src\LTexture.cpp" />
+    <ClCompile Include="src\LTimer.cpp" />
+    <ClCompile Include="src\MainPlayer.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Rectangle.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameUtils.h" />
-    <ClInclude Include="Player\MainPlayer.h" />
-    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Include\client.h" />
+    <ClInclude Include="Include\GameUtils.h" />
+    <ClInclude Include="Include\Globals.h" />
+    <ClInclude Include="Include\LTexture.h" />
+    <ClInclude Include="Include\LTimer.h" />
+    <ClInclude Include="Include\MainPlayer.h" />
+    <ClInclude Include="Include\Player.h" />
+    <ClInclude Include="Include\Rectangle.h" />
+    <ClInclude Include="Include\Utils.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Utils\client.h" />
-    <ClInclude Include="Utils\Globals.h" />
-    <ClInclude Include="Utils\LTexture.h" />
-    <ClInclude Include="Utils\LTimer.h" />
-    <ClInclude Include="Utils\PlayersUtils.h" />
-    <ClInclude Include="Utils\Rectangle.h" />
-    <ClInclude Include="Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PaperIo.rc" />

@@ -1,25 +1,4 @@
-#include "Utils.h"
-
-
-const char* windowTitle = "SDL Tuto";
-
-
-const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-
-SDL_Window* window = NULL;
-SDL_Surface* screenSurface = NULL;
-SDL_Renderer* Renderer = NULL;
-
-TTF_Font *gFont = NULL;
-
-Client *client = NULL;
-bool client_set = false;
-
-
-bool start = false;
-
-
+#include <Utils.h>
 
 
 TTF_Font *loadFont(string font_path, int font_size)
@@ -226,3 +205,4 @@ void Clean() {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
+

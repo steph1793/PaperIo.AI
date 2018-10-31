@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
-#include "../Utils/LTexture.h"
-#include "../Utils/Rectangle.h"
+#include "LTexture.h"
+#include "Rectangle.h"
 
 class Player
 {

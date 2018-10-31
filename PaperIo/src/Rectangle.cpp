@@ -1,4 +1,4 @@
-#include "Rectangle.h"
+#include <Rectangle.h>
 
 SDL_Rect colors[8]{
 	{204,0,204,255},

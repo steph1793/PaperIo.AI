@@ -15,5 +15,4 @@ public:
 	void render(SDL_Rect *camera, SDL_Renderer *renderer);
 	void updateRect(SDL_Rect, int);
 	static void renderRects(std::vector<Rect*>, SDL_Rect *camera, SDL_Renderer *renderer);
-
 };
