@@ -8,7 +8,7 @@
 #include <sstream>
 #include "LTimer.h"
 #include "Globals.h"
-#include "../GameUtils.h"
+#include "GameUtils.h"
 
 #define _SDL_TTF_H
 
