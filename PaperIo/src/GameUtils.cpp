@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <vector>
+#include <algorithm>
+using namespace std;
+
 bool checkCollision(SDL_Rect *a, SDL_Rect* b)
 {
 	//The sides of the rectangles
@@ -270,4 +274,77 @@ int filledPolygonColor(SDL_Renderer * renderer, const Sint16 * vx, const Sint16 
 int filledPolygonRGBA(SDL_Renderer * renderer, const Sint16 * vx, const Sint16 * vy, int n, Uint8 r, Uint8 g, Uint8 b, Uint8 a, SDL_Rect *camera)
 {
 	return filledPolygonRGBAMT(renderer, vx, vy, n, r, g, b, a, NULL, NULL, camera);
+}
+
+
+int direction(int x1, int x2) {
+	if (x1 < x2) {
+		return 1;
+	}
+	else if (x1 == x2) return 0;
+	else return -1;
+}
+
+
+bool is_concave(int x1, int x2, int x3, int y1, int y2, int y3) {
+	bool result = false;
+	if (y1 == y2) {
+		if (y3 < y1) result = true;
+	}
+	else if (y1 == y3) {
+		if (y2 < y1) result = true;
+	}
+	if (direction(x2, x3) < 0) result = !result;
+	return result;
+}
+
+bool is_inside_polygon(int x, int y, const Sint16 * vx, const Sint16 * vy, int n) {
+	int compteur_left = 0;
+	int compteur_right = 0;
+	int pre, post = 0;
+	vector<int> vec;
+	for (int i = 0; i < n; i++) {
+		if (std::find(vec.begin(), vec.end(), vx[i]) != vec.end()) {
+			continue;
+		}
+		post = (i + 1 >= n) ? 0 : i+1;
+		pre = (i - 1 < 0) ? n - 1 : i-1;
+		if (y == vy[i]) {
+			if (x > vx[i]) {
+				if (!is_concave(vx[i], vx[pre], vx[post], vy[i], vy[pre], vy[post]))
+				{
+					compteur_left++;
+					vec.push_back(vx[i]);
+				}
+			}
+			else if (x < vx[i]) {
+				if (!is_concave(vx[i], vx[pre], vx[post], vy[i], vy[pre], vy[post]))
+				{
+					compteur_right++;
+					vec.push_back(vx[i]);
+				}
+			}
+			else return true;
+		}
+		else {
+			for (int j = i + 1; j < n; j++) {
+				bool added = false;
+
+				if (vx[i] == vx[j]) {
+					if ((y <= vy[j] && y >= vy[i]) || (y >= vy[j] && y <= vy[i])) {
+						if (x < vx[i]) { compteur_right++; vec.push_back(vx[i]); added = true; }
+						else if (x > vx[i]) { compteur_left++; vec.push_back(vx[i]); added = true; }
+						else return true;
+					}
+					if (!added && j == i+1) {
+						i++; // we skip the next point too
+					}
+					break;
+				}
+			}
+		}
+	}
+	if ( (compteur_left%2==1 && compteur_right%2==1) ||
+		(compteur_left*compteur_right !=0 && (compteur_left+compteur_right)%2==1)) return true;
+	else return false;
 }

@@ -2,6 +2,10 @@
 #include "Utils.h"
 #include <random>
 #include <algorithm>
+#include <iostream>
+
+
+using namespace std;
 
 #pragma warning(disable: 4996)
 
@@ -62,7 +66,7 @@ bool init()
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+		cout << "SDL could not initialize! SDL Error: "  << SDL_GetError() << endl;
 		success = false;
 	}
 	else
@@ -70,14 +74,14 @@ bool init()
 		//Set texture filtering to linear
 		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 		{
-			printf("Warning: Linear texture filtering not enabled!");
+			cout << "Warning: Linear texture filtering not enabled!\n";
 		}
 
 		//Create window
 		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
-			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
+			cout << "Window could not be created! SDL Error: " << SDL_GetError();
 			success = false;
 		}
 		else
@@ -86,7 +90,7 @@ bool init()
 			gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 			if (gRenderer == NULL)
 			{
-				printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
+				cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << endl;
 				success = false;
 			}
 			else
@@ -98,7 +102,7 @@ bool init()
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
-					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+					cout << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << endl;
 					success = false;
 				}
 			}
@@ -116,7 +120,7 @@ bool loadMedia()
 	//Load sprites
 	if (!gButton.gButtonSpriteSheetTexture.loadFromFile("Media/Images/button.png", gRenderer))
 	{
-		printf("Failed to load button sprite texture!\n");
+		cout << "Failed to load button sprite texture!\n";
 		success = false;
 	}
 	else

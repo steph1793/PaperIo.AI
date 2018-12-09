@@ -3,11 +3,9 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <stdio.h>
 #include <string>
 #include "LButton.h"
 
-#include "../stdafx.h"
 #include <iostream>
 #include <SDL.h>
 #include <SDL_net.h>
@@ -15,10 +13,11 @@
 #include <csignal>
 #include <string>
 #include <sstream>
-#include <time.h>
 #include <vector>
 #include <sstream>
 #include <map> 
+#include "stdafx.h"
+
 
 
 using namespace std; 

@@ -3,8 +3,8 @@ using namespace std;
 
 
 void App() {
-	Sint16 *vx = new Sint16[5]{ 1,300,600,400,200 };
-	Sint16 *vy = new Sint16[5]{ 1, 100, 100, 600, 400 };
+	Sint16 vx[18] = { 1, 10, 10, 40, 40, 70, 70, 100, 100, 120, 120, 70, 70, 40, 40, 10, 10, 1 };
+	Sint16 vy[18] = { 30, 30, 10, 10, 30, 30, 0, 0, 50, 50, 80, 80, 100, 100, 120, 120, 60, 60};
 
 	 SDL_Event e;
 	 bool quit = false;
@@ -57,7 +57,7 @@ void App() {
 		//gFPSTextTexture.render((SCREEN_WIDTH - gFPSTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gFPSTextTexture.getHeight()) / 2);
 ;		
 
-		int r = filledPolygonRGBA(Renderer, vx, vy, 5, 255, 0, 255, 255, &camera);
+		int r = filledPolygonRGBA(Renderer, vx, vy, 18, 255, 0, 255, 255, &camera);
 		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
 
 		Rect::renderRects(rects_trail, &camera, Renderer);
@@ -76,11 +76,16 @@ void App() {
 	}
 }
 
+
+
 int main(int argc, char** argv)
 {
-
+	//Sint16 vx[18] = { 1, 10, 10, 40, 40, 70, 70, 100, 100, 120, 120, 70, 70, 40, 40, 10, 10, 1 };
+	//Sint16 vy[18] = { 30, 30, 10, 10, 30, 30, 0, 0, 50, 50, 80, 80, 100, 100, 120, 120, 60, 60};
+	//int result = is_inside_polygon(120,30, vx, vy, 18);
+	//cout << result << endl;
 	if(!Init()) return 0; // à redefinir (par exemple boucle while dans le init pour essayer de rconnecter le joueur encore et encore jusqu'à ce que le serveur soit allumé).
 	App();
 	Clean();
 	return 0;
-}
+} 

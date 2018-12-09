@@ -17,7 +17,7 @@ TTF_Font *loadFont(string font_path, int font_size)
 bool Init() {
 
 
-	client = new Client("192.168.43.176");
+	client = new Client("localhost");
 	if (!client->Init()) { printf("Client initialization failed.\n"); return false; }
 	else  client_set = true;
 
