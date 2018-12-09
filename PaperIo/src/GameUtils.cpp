@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <vector>
-#include <algorithm>
-using namespace std;
 
 bool checkCollision(SDL_Rect *a, SDL_Rect* b)
 {
@@ -348,3 +345,122 @@ bool is_inside_polygon(int x, int y, const Sint16 * vx, const Sint16 * vy, int n
 		(compteur_left*compteur_right !=0 && (compteur_left+compteur_right)%2==1)) return true;
 	else return false;
 }
+
+int* index_extend_polygon(vector<Sint16> vecx, vector<Sint16>vecy, vector<int>to_add_x, vector<int> to_add_y) {
+
+	int out_x = *(to_add_x.begin());
+	int out_y = *(to_add_y.begin());
+	int in_x = *(to_add_x.end()-1);
+	int in_y = *(to_add_y.end()-1);
+
+
+	int index_out = -1, index_in = -1, index = 0;
+	int x3 = 0, y3 = 0;
+	for (auto itx = vecx.begin(), ity = vecy.begin(); itx != vecx.end(); ity++, itx++) {
+		//0.5 *[x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)]
+		int x1 = *itx;
+		int x2 = (itx + 1 != vecx.end()) ? *(itx + 1) : *(vecx.begin());
+
+		int y1 = *ity;
+		int y2 = (ity + 1 != vecy.end()) ? *(ity + 1) : *(vecy.begin());
+
+		x3 = out_x;
+		y3 = out_y;
+		if ((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) == 0) {
+			if (y1 == y2) {
+				if ((x1 <= x3 && x2 >= x3) || (x1 >= x3 && x2 <= x3)) index_out = index;
+			}
+			else if (x1 == x2) {
+				if ((y1 <= y3 && y2 >= y3) || (y1 >= y3 && y2 <= y3)) index_out = index;
+			}
+		}
+		x3 = in_x;
+		y3 = in_y;
+
+		if ((x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2)) == 0) {
+			if (y1 == y2) {
+				if ((x1 <= x3 && x2 >= x3) || (x1 >= x3 && x2 <= x3)) index_in = index;
+			}
+			if (x1 == x2) {
+				if ((y1 <= y3 && y2 >= y3) || (y1 >= y3 && y2 <= y3)) index_in = index;
+			}
+		}
+		if (index_in >= 0 && index_out >= 0) return new int[2] { index_out, index_in };
+		index++;
+	}
+	return NULL;
+}
+
+int polygon_direction(vector<int> vecx, vector<int> vecy) {
+	
+	int result = 0; int x1, x2, y1, y2 = 0;
+	for (auto itx = vecx.begin(), ity = vecy.begin(); itx != vecx.end(); itx++, ity++) {
+
+		x1 = *itx;
+		x2 = (itx + 1 != vecx.end()) ? *(itx + 1) : *vecx.begin();
+		y1 = *ity;
+		y2 = (ity + 1 != vecy.end()) ? *(ity + 1) : *vecy.begin();
+		result += (x2 - x1)*(y2 + y1);
+	}
+	return result;
+}
+
+void update_polygon(vector<Sint16> &vecx, vector<Sint16> &vecy, vector<int> new_pts_x, vector<int> new_pts_y) {
+
+	int direct = polygon_direction(new_pts_x, new_pts_y);
+	int * indexes = index_extend_polygon(vecx, vecy, new_pts_x, new_pts_y);
+
+	if (indexes) {
+		int out_ind = indexes[0];
+		int in_ind = indexes[1];
+		if (direct < 0) {
+			if (out_ind < in_ind) {
+				vecx.erase(vecx.begin() + out_ind + 1, vecx.begin() + in_ind + 1);
+				vecy.erase(vecy.begin() + out_ind + 1, vecy.begin() + in_ind + 1);
+
+				vecx.insert(vecx.begin() + out_ind+1, new_pts_x.begin(), new_pts_x.end());
+				vecy.insert(vecy.begin() + out_ind+1, new_pts_y.begin(), new_pts_y.end());
+			}
+
+			else if (out_ind == in_ind) {
+				vecx.insert(vecx.begin() + out_ind+1, new_pts_x.begin(), new_pts_x.end());
+				vecy.insert(vecy.begin() + out_ind+1, new_pts_y.begin(), new_pts_y.end());
+			}
+			else {
+				vecx.erase(vecx.begin(), vecx.begin() + in_ind + 1);
+				vecy.erase(vecy.begin(), vecy.begin() + in_ind + 1);
+
+				out_ind -= in_ind + 1;
+				vecx.erase(vecx.begin() + out_ind + 1, vecx.end());
+				vecy.erase(vecy.begin() + out_ind + 1, vecy.end());
+
+				vecx.insert(vecx.end(), new_pts_x.begin(), new_pts_x.end());
+				vecy.insert(vecy.end(), new_pts_y.begin(), new_pts_y.end());
+			}
+		}
+		else {
+			if (out_ind > in_ind) {
+				vecx.erase(vecx.begin() + in_ind + 1, vecx.begin() + out_ind + 1);
+				vecy.erase(vecy.begin() + in_ind + 1, vecy.begin() + out_ind + 1);
+
+				vecx.insert(vecx.begin() + in_ind+1, new_pts_x.rbegin(), new_pts_x.rend());
+				vecy.insert(vecy.begin() + in_ind+1, new_pts_y.rbegin(), new_pts_y.rend());
+			}
+			else if (out_ind == in_ind) {
+				vecx.insert(vecx.begin() + in_ind+1, new_pts_x.rbegin(), new_pts_x.rend());
+				vecy.insert(vecy.begin() + in_ind+1, new_pts_y.rbegin(), new_pts_y.rend());
+			}
+			else {
+				vecx.erase(vecx.begin(), vecx.begin() + out_ind+1 );
+				vecy.erase(vecy.begin(), vecy.begin() + out_ind +1);
+				in_ind -= out_ind + 1;
+				vecx.erase(vecx.begin() + in_ind +1, vecx.end());
+				vecy.erase(vecy.begin() + in_ind+1 , vecy.end());
+
+				vecx.insert(vecx.end(), new_pts_x.rbegin(), new_pts_x.rend());
+				vecy.insert(vecy.end(), new_pts_y.rbegin(), new_pts_y.rend());
+			}
+		}
+	}
+}
+
