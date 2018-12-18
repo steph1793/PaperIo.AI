@@ -2,6 +2,9 @@
 #include <SDL.h>
 #include "LTexture.h"
 #include "Rectangle.h"
+#include <Polygon.h>
+
+
 
 class Player
 {
@@ -15,8 +18,7 @@ public:
 	int color = 0;
 
 	Rect* rect = NULL;
-	Rect* init_rect = NULL;
-
+	Polygon *zone;
 	//Initializes the variables
 	Player();
 	Player::Player(int Id, int x, int y);
@@ -38,5 +40,17 @@ public:
 	int mVelX, mVelY;
 
 	LTexture gDotTexture;
+
+	bool in = true;
+	bool out = false;
+
+	queue<Point*> buffer_in;
+
+	vector<int> temp_x;
+	vector<int> temp_y;
+
+	Point * p_in = NULL;
+	Point * p_out = NULL;
+
 
 };

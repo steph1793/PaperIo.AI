@@ -19,6 +19,7 @@ using namespace std;
 bool Init();
 void load_dots();
 void render_dots(SDL_Rect *camera, SDL_Renderer *renderer);
+void render_polygons(SDL_Rect * camera, SDL_Renderer *renderer);
 void move_dots(SDL_Renderer*);
 void update_dots_moves();
 void before_game_loop();
