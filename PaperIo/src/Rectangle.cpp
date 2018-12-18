@@ -1,16 +1,5 @@
 #include <Rectangle.h>
 
-SDL_Rect colors[8]{
-	{204,0,204,255},
-	{204,0,102,255},
-	{102,0,204,255},
-	{0,0,204,255},
-	{0,153,76,255},
-	{153,153,0,255},
-	{255,255,51,255},
-	{255,153,51,255}
-};
-
 Rect::Rect(int playerid, SDL_Rect b, int type)
 {
 	playerId = playerid;
