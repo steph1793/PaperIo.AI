@@ -82,8 +82,16 @@ void render_dots(SDL_Rect *camera, SDL_Renderer *renderer) {
 	}
 }
 
+void render_polygons(SDL_Rect * camera, SDL_Renderer *renderer) {
+	dot->zone->render(camera, renderer);
+	for (auto i = Dots.begin(); i != Dots.end(); i++)
+	{
+		i->second->zone->render(camera, renderer);
+	}
+}
+
 void move_dots(SDL_Renderer* renderer) {
-	dot->move();
+	dot->move(renderer);
 	for (auto i = Dots.begin(); i != Dots.end(); i++)
 	{
 		i->second->move(renderer);
@@ -94,6 +102,7 @@ void move_dots(SDL_Renderer* renderer) {
 void update_dots_moves() {
 	string buff = client->GetResponse();
 	bool change_direction = false;
+
 	if (buff.length() > 3) {
 		char b[100];
 		strcpy_s(b, buff.c_str());
@@ -135,10 +144,21 @@ void update_dots_moves() {
 				change_direction = true;
 			}
 		}
+
+
+
 		if (change_direction) {
+			
 			tmp->rect = new Rect(tmp->id, { tmp->mBox.x, tmp->mBox.y, tmp->mBox.w, tmp->mBox.h }, 0);
 			tmp->rect->color = tmp->color;
 			rects_trail.push_back(tmp->rect);
+
+
+			
+			if (tmp->in == false) {
+				tmp->temp_x.push_back(tmp->rect->box.x);
+				tmp->temp_y.push_back(tmp->rect->box.y);
+			}
 			change_direction = false;
 		}
 	}
@@ -173,10 +193,8 @@ void before_game_loop() {
 						dot->mBox.y = atoi(s4);
 						dot->set = true;
 						dot->color = atoi(s5);
-						dot->init_rect = new Rect(dot->id, { dot->mBox.x - (100 - dot->DOT_WIDTH) / 2,
-												dot->mBox.y - (100 - dot->DOT_HEIGHT) / 2, 100, 100 }, 1);
-						dot->init_rect->color = dot->color;
-						rects_trail.push_back(dot->init_rect);
+						dot->zone = new Polygon(dot->id, dot->color, { dot->mBox.x - (100 - dot->DOT_WIDTH) / 2,
+												dot->mBox.y - (100 - dot->DOT_HEIGHT) / 2, 100, 100 });
 						client->id = atoi(s1);
 						cout << "dot created" << endl;
 					}
@@ -185,11 +203,9 @@ void before_game_loop() {
 						d->color = atoi(s5);
 						d->rect = new Rect(d->id, {d->mBox.x, d->mBox.y, d->mBox.w, d->mBox.h}, 0);
 						d->rect->color = d->color;
-						d->init_rect = new Rect(d->id, { d->mBox.x - (100 - d->DOT_WIDTH) / 2,
-							d->mBox.y - (100 - d->DOT_HEIGHT) / 2, 100, 100 }, 1);
-						d->init_rect->color = d->color;
+						d->zone = new Polygon(d->id, d->color, { d->mBox.x - (100 - d->DOT_WIDTH) / 2,
+							d->mBox.y - (100 - d->DOT_HEIGHT) / 2, 100, 100 });
 						Dots.insert(pair<int, Player*>(atoi(s1), d));
-						rects_trail.push_back(d->init_rect);
 					}
 				}
 

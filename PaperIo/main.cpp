@@ -4,35 +4,6 @@ using namespace std;
 
 void App() {
 
-	Sint16 vx[18] = { 1, 10, 10, 40, 40, 70, 70, 100, 100, 120, 120, 70, 70, 40, 40, 10, 10, 1 };
-	Sint16 vy[18] = { 30, 30, 10, 10, 30, 30, 0, 0, 50, 50, 80, 80, 100, 100, 120, 120, 60, 60 };
-
-	std::vector<int> add_x;
-	add_x.push_back(10);
-	add_x.push_back(0);
-	add_x.push_back(0);
-	add_x.push_back(10);
-	//add_x.push_back(7);
-	//add_x.push_back(7);
-
-
-	std::vector<int> add_y;
-	add_y.push_back(80);
-	add_y.push_back(80);
-	add_y.push_back(20);
-	add_y.push_back(20);
-	//add_y.push_back(140);
-	//add_y.push_back(60);
-
-
-	std::vector<Sint16> vecx(vx, vx + 18);
-	std::vector<Sint16> vecy(vy, vy + 18);
-
-
-	update_polygon(vecx, vecy, add_x, add_y);
-
-	Sint16 * v_x = &vecx[0];
-	Sint16 * v_y = &vecy[0];
 	 SDL_Event e;
 	 bool quit = false;
 
@@ -84,9 +55,8 @@ void App() {
 		//gFPSTextTexture.render((SCREEN_WIDTH - gFPSTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gFPSTextTexture.getHeight()) / 2);
 ;		
 
-		int r = filledPolygonRGBA(Renderer, v_x, v_y, 18, 255, 0, 255, 255, &camera);
+		render_polygons(&camera, Renderer);
 		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
-
 		Rect::renderRects(rects_trail, &camera, Renderer);
 		render_dots(&camera, Renderer);
 		//Update screen
@@ -101,12 +71,40 @@ void App() {
 		}
 
 	}
+
+
+
+	
+}
+
+int polygonArea()
+{
+	int numPoints = 4;
+	const Sint16 X[4] = { 10,60,60,10 };
+	const Sint16 Y[4] = { 10,10,60,60 };
+	int area = 0;         // Accumulates area in the loop
+	int j = numPoints - 1;  // The last vertex is the 'previous' one to the first
+
+	for (int i = 0; i < numPoints; i++)
+	{
+		area = area + (X[j] + X[i]) * (Y[j] - Y[i]);
+		j = i;  //j is previous vertex to i
+	}
+	return abs(area) / 2;
 }
 
 
 
 int main(int argc, char** argv)
-{/*
+{
+
+	
+
+
+	//std::vector<Sint16> vecx(vx, vx + 4);
+	//std::vector<Sint16> vecy(vy, vy + 4);
+	//int aire = polygonArea();
+	/*
 	Sint16 vx[18] = { 1, 10, 10, 40, 40, 70, 70, 100, 100, 120, 120, 70, 70, 40, 40, 10, 10, 1 };
 	Sint16 vy[18] = { 30, 30, 10, 10, 30, 30, 0, 0, 50, 50, 80, 80, 100, 100, 120, 120, 60, 60};
 	

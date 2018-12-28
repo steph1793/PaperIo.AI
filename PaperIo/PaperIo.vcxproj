@@ -125,23 +125,27 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\client.cpp" />
+    <ClCompile Include="src\clipper.cpp" />
     <ClCompile Include="src\GameUtils.cpp" />
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\LTexture.cpp" />
     <ClCompile Include="src\LTimer.cpp" />
     <ClCompile Include="src\MainPlayer.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Polygon.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\client.h" />
+    <ClInclude Include="Include\clipper.hpp" />
     <ClInclude Include="Include\GameUtils.h" />
     <ClInclude Include="Include\Globals.h" />
     <ClInclude Include="Include\LTexture.h" />
     <ClInclude Include="Include\LTimer.h" />
     <ClInclude Include="Include\MainPlayer.h" />
     <ClInclude Include="Include\Player.h" />
+    <ClInclude Include="Include\Polygon.h" />
     <ClInclude Include="Include\Rectangle.h" />
     <ClInclude Include="Include\Utils.h" />
     <ClInclude Include="resource.h" />
