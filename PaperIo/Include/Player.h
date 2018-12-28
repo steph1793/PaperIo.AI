@@ -14,7 +14,7 @@ public:
 	static const int DOT_HEIGHT = 20;
 
 	//Maximum axis velocity of the dot
-	static const int DOT_VEL = 5;
+	static const int DOT_VEL = 4 ;
 	int color = 0;
 
 	Rect* rect = NULL;

@@ -31,3 +31,5 @@ extern bool start;
 extern MainPlayer *dot;
 extern map<int, Player*> Dots;
 extern vector<Rect*> rects_trail;
+
+extern SDL_Rect rects[4]; 

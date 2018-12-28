@@ -1,11 +1,11 @@
 #include <Globals.h>
 
-const int LEVEL_WIDTH = 1280;
-const int LEVEL_HEIGHT = 960;
+const int LEVEL_WIDTH = 2500;
+const int LEVEL_HEIGHT = 2500;
 
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 700;
 
 
 
@@ -31,3 +31,5 @@ bool start = false;
 MainPlayer* dot = new MainPlayer();
 map<int, Player*> Dots;
 vector<Rect*> rects_trail;
+
+SDL_Rect rects[4];

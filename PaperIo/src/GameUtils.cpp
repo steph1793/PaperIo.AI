@@ -18,6 +18,8 @@ SDL_Rect colors[8]{
 	{255,153,51,255}
 };
 
+
+
 bool checkCollision(SDL_Rect *a, SDL_Rect* b)
 {
 	//The sides of the rectangles
@@ -492,8 +494,8 @@ bool update_polygon(vector<Sint16> &vecx, vector<Sint16> &vecy, vector<int> new_
 
 
 		//if (out_ind != in_ind) {
-		vecx_temp1.erase(vecx_temp1.begin() + min + 1, ((max == vecx_temp1.size() - 1) ? vecx_temp1.end() : vecx_temp1.begin() + max + 1));
-		vecy_temp1.erase(vecy_temp1.begin() + min + 1, ((max == vecy_temp1.size() - 1) ? vecy_temp1.end() : vecy_temp1.begin() + max + 1));
+		vecx_temp1.erase(vecx_temp1.begin() + (min + 1), ((max == vecx_temp1.size() - 1) ? vecx_temp1.end() : vecx_temp1.begin() + (max + 1)));
+		vecy_temp1.erase(vecy_temp1.begin() + (min + 1), ((max == vecy_temp1.size() - 1) ? vecy_temp1.end() : vecy_temp1.begin() + (max + 1)));
 
 		vecx_temp2.erase(vecx_temp2.begin(), ((min == vecx_temp2.size() - 1) ? vecx_temp2.end() : vecx_temp2.begin() + min + 1));
 		vecy_temp2.erase(vecy_temp2.begin(), ((min == vecy_temp2.size() - 1) ? vecy_temp2.end() : vecy_temp2.begin() + min + 1));

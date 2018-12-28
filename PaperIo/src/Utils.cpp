@@ -78,6 +78,7 @@ void render_dots(SDL_Rect *camera, SDL_Renderer *renderer) {
 	dot->render(camera, renderer);
 	for (auto i = Dots.begin(); i != Dots.end(); i++)
 	{
+		if(!i->second->dead)
 		i->second->render(camera);
 	}
 }
@@ -86,6 +87,7 @@ void render_polygons(SDL_Rect * camera, SDL_Renderer *renderer) {
 	dot->zone->render(camera, renderer);
 	for (auto i = Dots.begin(); i != Dots.end(); i++)
 	{
+		if (!i->second->dead)
 		i->second->zone->render(camera, renderer);
 	}
 }
@@ -94,6 +96,7 @@ void move_dots(SDL_Renderer* renderer) {
 	dot->move(renderer);
 	for (auto i = Dots.begin(); i != Dots.end(); i++)
 	{
+		if (!i->second->dead)
 		i->second->move(renderer);
 	}
 }
@@ -149,12 +152,10 @@ void update_dots_moves() {
 
 		if (change_direction) {
 			
-			tmp->rect = new Rect(tmp->id, { tmp->mBox.x, tmp->mBox.y, tmp->mBox.w, tmp->mBox.h }, 0);
-			tmp->rect->color = tmp->color;
-			rects_trail.push_back(tmp->rect);
+				tmp->rect = new Rect(tmp->id, { tmp->mBox.x, tmp->mBox.y, tmp->mBox.w, tmp->mBox.h }, 0);
+				tmp->rect->color = tmp->color;
+				rects_trail.push_back(tmp->rect);
 
-
-			
 			if (tmp->in == false) {
 				tmp->temp_x.push_back(tmp->rect->box.x);
 				tmp->temp_y.push_back(tmp->rect->box.y);

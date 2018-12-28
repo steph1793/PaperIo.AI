@@ -81,7 +81,7 @@ void Player::move(SDL_Renderer *renderer)
 	}
 
 	kill();
-
+	if (dead) return;
 
 	int direction = (mVelX == 0) ? 1 : 0;
 	if (mVelY == 0 && mVelX == 0) direction = -1;
@@ -162,19 +162,58 @@ void Player::render(SDL_Rect *camera)
 }
 
 void Player::kill() {
-	if (checkCollision(&mBox, &rect->box)) {
-		if (id == dot->id) {
-			dot->dead = true;
+	vector<Rect*>tmp;
+	for (auto rect = rects_trail.begin(); rect != rects_trail.end(); rect++) {
+		if (checkCollision(&mBox, &(*rect)->box) && this->rect->box.x != (*rect)->box.x && this->rect->box.y != (*rect)->box.y) {
+			if ((is_inside_polygon(mBox.x, mBox.y, &zone->vecx[0], &zone->vecy[0], zone->vecx.size()) && (*rect)->playerId == id) ||
+				(id != dot->id && is_inside_polygon(mBox.x, mBox.y, &dot->zone->vecx[0], &dot->zone->vecy[0], dot->zone->vecx.size()) && (*rect)->playerId == dot->id) ||
+				(Dots.size() > 0 && (*rect)->playerId != dot->id && is_inside_polygon(mBox.x, mBox.y, &Dots.at((*rect)->playerId)->zone->vecx[0], &Dots.at((*rect)->playerId)->zone->vecy[0], Dots.at((*rect)->playerId)->zone->vecx.size())))
+				continue;
+			if ((*rect)->playerId == dot->id) {
+				dot->dead = true;
+				return;
+			}
+			else {
+				Dots.at((*rect)->playerId)->dead = true;
+				for (auto it = rects_trail.begin(); it != rects_trail.end(); it++) {
+					if ((*it)->playerId == (*rect)->playerId) {
+
+						tmp.push_back(*it);
+					}
+				}
+
+			}
 		}
-		else {
-			Dots.erase(id);
-		}
+		
 	}
-	for (auto it = Dots.begin(); it != Dots.end(); ) {
-		if (id != it->second->id && checkCollision(&mBox, &(*it).second->rect->box)) {
-			it = Dots.erase(it);
+
+
+	for (auto it = rects_trail.begin(); it != rects_trail.end(); ) {
+		if (find(tmp.begin(), tmp.end(), *it) != tmp.end()) {
+			it = rects_trail.erase(it);
 		}
 		else it++;
 	}
-	if (id != dot->id && checkCollision(&mBox, &dot->rect->box)) dot->dead = true;
+	rects[0] = { 0 ,100 ,LEVEL_WIDTH,10 }; rects[1] = { LEVEL_WIDTH - 110 ,100 ,10,LEVEL_HEIGHT }; rects[2] = { 100 ,LEVEL_HEIGHT - 110 ,LEVEL_WIDTH,10 }; rects[3] = { 100 ,0,10,LEVEL_HEIGHT };
+
+	for each ( auto r in rects)
+	{
+		if (checkCollision(&mBox, &r)) {
+			if (id == dot->id) {
+				dead = true; return;
+			}
+			else {
+				for (auto it = rects_trail.begin(); it != rects_trail.end(); ) {
+					if ((*it)->playerId == id) {
+						it = rects_trail.erase(it);
+					}
+					else it++;
+				}
+
+				Dots.at(id)->dead=true;
+				break;
+			}
+		}
+	}
+	
 }

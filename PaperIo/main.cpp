@@ -8,11 +8,6 @@ void App() {
 	 bool quit = false;
 
 	 SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-	// LTexture gBGTexture;
-	 //if (!gBGTexture.loadFromFile("Media/Images/bg.png", Renderer))
-	 //{
-		// printf("Failed to load background texture!\n");
-	 //}
 
 	SDL_Color textColor = { 0, 0, 0, 255 };
 	LTimer fpsTimer;
@@ -42,19 +37,19 @@ void App() {
 		}
 
 		if(start) {
+
 			update_dots_moves();
 			move_dots(Renderer);
 			dot->SetCamera(&camera);
+			if (dot->dead) break;
 		}
 	
 		//Clear screen
 		SDL_SetRenderDrawColor(Renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(Renderer);
-		//gBGTexture.render(0, 0, Renderer, &camera);
-		//Render textures
-		//gFPSTextTexture.render((SCREEN_WIDTH - gFPSTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gFPSTextTexture.getHeight()) / 2);
-;		
-
+		SDL_SetRenderDrawColor(Renderer, 0xF4, 0x0D, 0x42, 0xFF);
+		rects[0] = { 0 - camera.x,100 - camera.y ,LEVEL_WIDTH,10 }; rects[1] = { LEVEL_WIDTH - 110 - camera.x,100 - camera.y,10,LEVEL_HEIGHT }; rects[2] = { 100 - camera.x,LEVEL_HEIGHT - 110 - camera.y,LEVEL_WIDTH,10 }; rects[3] = { 100 - camera.x,0 - camera.y,10,LEVEL_HEIGHT };
+		SDL_RenderFillRects(Renderer, rects, 4);
 		render_polygons(&camera, Renderer);
 		SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
 		Rect::renderRects(rects_trail, &camera, Renderer);
