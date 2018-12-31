@@ -1,4 +1,4 @@
-# PaperIo.AIA remake of the game Paper Io
+# PaperIo.AIA remake of the game Paper Io<br>
 In the next weeks, we will implement bots to play against humans
 
 This project has been made by : 
