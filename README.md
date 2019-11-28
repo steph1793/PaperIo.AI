@@ -1,4 +1,4 @@
-# PaperIo.AIA remake of the game Paper Io<br>
+# PaperIo.AI, A remake of the game Paper Io<br>
 
 This project has been made by : 
 
